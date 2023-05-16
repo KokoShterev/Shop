@@ -20,8 +20,10 @@ public class Address {
     private String postalCode;
     private String country;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
+
 
     // Constructors, getters, and setters
 }
