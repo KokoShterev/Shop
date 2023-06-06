@@ -10,8 +10,12 @@ public class AddressServiceImpl implements com.example.proekt.services.AddressSe
     }
 
     @Override
-    public java.util.List<com.example.proekt.controller.resources.AddressResource> findAll() {
+    public java.util.List<com.example.proekt.controller.resources.AddressResource> getAll() {
         return addressRepository.findAll().stream().map(ADDRESS_MAPPER::toResource).collect(java.util.stream.Collectors.toList());
+    }
+    @Override
+    public com.example.proekt.controller.resources.AddressResource getById(Long id) {
+        return ADDRESS_MAPPER.toResource(addressRepository.getById(id));
     }
 
     @Override
@@ -21,8 +25,13 @@ public class AddressServiceImpl implements com.example.proekt.services.AddressSe
     }
 
     @Override
-    public com.example.proekt.controller.resources.AddressResource update(com.example.proekt.controller.resources.AddressResource addressResource) {
+    public com.example.proekt.controller.resources.AddressResource update(com.example.proekt.controller.resources.AddressResource addressResource, Long id) {
         com.example.proekt.entity.Address address = ADDRESS_MAPPER.fromResource(addressResource);
         return ADDRESS_MAPPER.toResource(addressRepository.save(address));
+    }
+
+    @Override
+    public void delete(Long id) {
+        addressRepository.deleteById(id);
     }
 }
